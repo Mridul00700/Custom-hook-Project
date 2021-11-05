@@ -2,26 +2,47 @@ import React, { useEffect, useState } from 'react';
 
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
+import useApi from './components/hooks/api-task';
+
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  const fetchTasks = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        'add you firebase link'
-      );
 
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
 
-      const data = await response.json();
+  const { sendRequest: fetchTasks, loading: isLoading, error } = useApi();
 
+  // const fetchTasks = (taskText) => {
+  //   // setIsLoading(true);
+
+  //   // try {
+  //   //   const response = await fetch(
+  //   //     'https://react-http-76887-default-rtdb.firebaseio.com/task.json'
+  //   //   );
+
+  //   //   if (!response.ok) {
+  //   //     throw new Error('Request failed!');
+  //   //   }
+
+  //   //   const data = await response.json();
+
+  //   //   const loadedTasks = [];
+
+  //   //   for (const taskKey in data) {
+  //   //     loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+  //   //   }
+
+  //   //   setTasks(loadedTasks);
+  //   // } catch (err) {
+  //   //   setError(err.message || 'Something went wrong!');
+  //   // }
+  //   // setIsLoading(false);
+  // };
+
+  useEffect(() => {
+    const dataTransform = (data) => {
       const loadedTasks = [];
 
       for (const taskKey in data) {
@@ -29,15 +50,10 @@ function App() {
       }
 
       setTasks(loadedTasks);
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
     }
-    setIsLoading(false);
-  };
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+    fetchTasks({ url: 'Your firebase URL' }, dataTransform);
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
