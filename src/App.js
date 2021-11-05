@@ -52,7 +52,7 @@ function App() {
       setTasks(loadedTasks);
     }
 
-    fetchTasks({ url: 'https://react-http-76887-default-rtdb.firebaseio.com/task.json' }, dataTransform);
+    fetchTasks({ url: 'Your firebase URL' }, dataTransform);
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
