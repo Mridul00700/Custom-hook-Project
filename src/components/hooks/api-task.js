@@ -26,7 +26,7 @@ const useApi = () => {
 
             applyData(data);
         } catch (error) {
-            setError(error)
+            setError(error.message || 'Something went wrong!')
         }
         setLoading(false);
     }, []);
