@@ -19,7 +19,7 @@ function App() {
 
   //   // try {
   //   //   const response = await fetch(
-  //   //     'https://react-http-76887-default-rtdb.firebaseio.com/task.json'
+  //   //     'Your firebase URL'
   //   //   );
 
   //   //   if (!response.ok) {
@@ -52,7 +52,7 @@ function App() {
       setTasks(loadedTasks);
     }
 
-    fetchTasks({ url: 'Your firebase URL' }, dataTransform);
+    fetchTasks({ url: 'https://react-http-76887-default-rtdb.firebaseio.com/task.json' }, dataTransform);
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
