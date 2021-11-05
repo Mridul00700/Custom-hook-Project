@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 
-const useApi = (requestConfig, applyData) => {
+const useApi = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const sendRequest = useCallback(async () => {
+    const sendRequest = useCallback(async (requestConfig, applyData) => {
         setLoading(true);
         setError(null);
         try {
@@ -29,7 +29,7 @@ const useApi = (requestConfig, applyData) => {
             setError(error)
         }
         setLoading(false);
-    }, [applyData, requestConfig.body, requestConfig.headers, requestConfig.method, requestConfig.url]);
+    }, []);
 
 
     return { sendRequest, loading, error };
